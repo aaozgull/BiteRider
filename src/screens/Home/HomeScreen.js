@@ -88,9 +88,9 @@ export default function HomeScreen() {
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.circle}>
-            <Image
+            {/* <Image
               source={require('../../assets/images/overview/notification.png')}
-            />
+            /> */}
           </View>
           <View style={styles.circle}>
             <Text style={styles.profileText}>Ys</Text>

@@ -35,8 +35,9 @@ const AppButton = ({
 
 const styles = StyleSheet.create({
   button: {
+    height: 40,
     paddingHorizontal: 15,
-    paddingVertical: 15,
+    paddingVertical: 10,
     borderRadius: BORDER_RADIUS.xlarge,
     alignItems: 'center',
     borderWidth: 1,

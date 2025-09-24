@@ -16,6 +16,7 @@ export const COLORS = {
   lightGray: '#EEEEEE',
   normalGray: '#E3DFDF',
   borderGray: '#5C5C5C4D', //'#868585',
+  borderGrayMedium: '#868585',
   borderGrayDark: '#5C5C5C', //'#868585',
   lightGreen: '#C4EEED',
   white: '#ffffff',
