@@ -16,9 +16,8 @@ import { COLORS, FONTS } from '../../constants';
 import { FONT_SIZE } from '../../utils/spacing';
 import { isIOS } from '../../utils/layout';
 
-const Password = ({ navigation }) => {
+const NewPasswordViaSMS = ({ navigation }) => {
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
 
   return (
     <SafeAreaView style={styles.container}>
@@ -34,64 +33,40 @@ const Password = ({ navigation }) => {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          <Text style={styles.title}>Password</Text>
+          <Text style={styles.title}>New password sent via SMS</Text>
+          <Text style={styles.subtitle}>
+            Type below the new password sent to your phone number
+          </Text>
           <AppInput
-            placeholder="Password"
+            placeholder="New Password"
             value={password}
             onChangeText={setPassword}
             type="password"
           />
-          <AppInput
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-            //secure
-            type="password"
-          />
-
-          <View style={{ marginTop: 10 }}>
-            <Text style={styles.footer}>Password mai ye hona chaheye</Text>
-            <LablePoints lable="Kam az kam 10 characters" />
-            <LablePoints lable="1 bara harf (A–Z)" />
-            <LablePoints lable="1 chota harf (a–z)" />
-            <LablePoints lable="1 number (0–9)" />
-            <LablePoints lable="1 khaas character (!@#$%^&*)" />
+          <View style={styles.smsRow}>
+            <Text style={styles.lable}>Didn’t get the SMS? </Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ForgetPassword')}
+            >
+              <Text style={styles.link}>Request again</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
 
         {/* Footer stays fixed */}
         <View style={styles.bottomSection}>
-          <Text
-            style={[
-              styles.footer,
-              {
-                marginBottom: 20,
-              },
-            ]}
-          >
+          <Text style={styles.footer}>
             Jari rakhne se aap hamari{' '}
             <Text style={{ color: COLORS.primary }}> Raazdaari ki policy </Text>{' '}
             aur cookies se ittifaq karte hain
           </Text>
           <AppButton
-            title="Account banaiyen"
-            onPress={() => navigation.navigate('PhoneNumber')}
+            title="Sign in"
+            onPress={() => navigation.navigate('AccountComplete')}
           />
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
-  );
-};
-
-const LablePoints = ({ lable }) => {
-  return (
-    <View style={styles.row}>
-      <Image
-        source={require('../../assets/images/Authentication/tick.png')}
-        style={styles.image}
-      />
-      <Text style={styles.lable}>{lable}</Text>
-    </View>
   );
 };
 
@@ -114,26 +89,35 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginBottom: 20,
   },
+  subtitle: {
+    fontFamily: FONTS.semiBold600,
+    fontSize: FONT_SIZE.normal,
+    marginBottom: 20,
+    color: COLORS.grayText1,
+  },
+
   link: {
     fontFamily: FONTS.bold700,
     fontSize: FONT_SIZE.xSmall,
     fontWeight: '700',
     color: COLORS.primary,
-    marginBottom: 12,
   },
-  row: { flexDirection: 'row', alignItems: 'center', marginVertical: 4 },
-  image: { marginRight: 7 },
   lable: {
     fontFamily: FONTS.semiBold600,
-    fontSize: FONT_SIZE.normal,
+    fontSize: FONT_SIZE.xSmall,
     fontWeight: '600',
+    color: COLORS.text,
   },
   footer: {
     fontFamily: FONTS.bold700,
     fontSize: FONT_SIZE.normal,
-    fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 20,
+  },
+  smsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
   },
 });
 
-export default Password;
+export default NewPasswordViaSMS;

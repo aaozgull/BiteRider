@@ -30,6 +30,7 @@ const PhoneNumber = ({ navigation }) => {
             placeholder="Phone number"
             value={phone}
             onChangeText={setPhone}
+            type="phone"
           />
         </View>
       </View>

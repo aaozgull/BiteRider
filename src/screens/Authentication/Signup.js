@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  KeyboardAvoidingView,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AppInput from '../../components/AppInput';
 import AppButton from '../../components/AppButton';
 import { COLORS, FONTS } from '../../constants';
 import { FONT_SIZE } from '../../utils/spacing';
+import { isIOS } from '../../utils/layout';
 
 const Signup = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -12,53 +21,56 @@ const Signup = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ flex: 1 }}>
-        <Text style={styles.title}>Signup</Text>
-        <AppInput placeholder="Email" value={email} onChangeText={setEmail} />
-        <AppInput
-          placeholder="Password"
-          value={pass}
-          onChangeText={setPass}
-          secure
-        />
-        <TouchableOpacity>
-          <Text style={styles.link}>Forgot Password?</Text>
-        </TouchableOpacity>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={isIOS ? 'padding' : 'height'}
+      >
+        <ScrollView
+          contentContainerStyle={styles.subContainer}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
+          <Text style={styles.title}>Signup</Text>
+          <AppInput placeholder="Email" value={email} onChangeText={setEmail} />
+          <AppInput
+            placeholder="Password"
+            value={pass}
+            onChangeText={setPass}
+            secure
+          />
+          <TouchableOpacity
+            onPress={() => navigation.navigate('ForgetPassword')}
+          >
+            <Text style={styles.link}>Forgot Password?</Text>
+          </TouchableOpacity>
 
-        <View style={{ marginVertical: 10 }}>
-          <View style={styles.row}>
-            <Image
-              source={require('../../assets/images/Authentication/tick.png')}
-              style={styles.image}
-            />
-            <Text style={styles.lable}> Must be 18 years or older</Text>
+          <View style={{ marginVertical: 10 }}>
+            <LablePoints lable="Must be 18 years or older" />
+            <LablePoints lable="Provide accurate information during sign-up" />
+            <LablePoints lable="Responsible for all activity on your account" />
           </View>
-          <View style={styles.row}>
-            <Image
-              source={require('../../assets/images/Authentication/tick.png')}
-              style={styles.image}
-            />
-            <Text style={styles.lable}>
-              Provide accurate information during sign-up
-            </Text>
-          </View>
-          <View style={styles.row}>
-            <Image
-              source={require('../../assets/images/Authentication/tick.png')}
-              style={styles.image}
-            />
-            <Text style={styles.lable}>
-              Responsible for all activity on your account
-            </Text>
-          </View>
+        </ScrollView>
+
+        <View style={styles.bottomSection}>
+          <AppButton
+            title="Continue"
+            onPress={() => navigation.navigate('PhoneNumber')}
+          />
         </View>
-      </View>
-
-      <AppButton
-        title="Continue"
-        onPress={() => navigation.navigate('PhoneNumber')}
-      />
+      </KeyboardAvoidingView>
     </SafeAreaView>
+  );
+};
+
+const LablePoints = ({ lable }) => {
+  return (
+    <View style={styles.row}>
+      <Image
+        source={require('../../assets/images/Authentication/tick.png')}
+        style={styles.image}
+      />
+      <Text style={styles.lable}>{lable}</Text>
+    </View>
   );
 };
 
@@ -68,6 +80,14 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: COLORS.background,
     paddingTop: 80,
+  },
+
+  subContainer: {
+    paddingTop: 70,
+    paddingBottom: 20, // leaves space above footer
+  },
+  bottomSection: {
+    paddingBottom: 10,
   },
   title: {
     fontFamily: FONTS.bold700,
