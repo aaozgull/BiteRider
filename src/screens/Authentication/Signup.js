@@ -31,12 +31,17 @@ const Signup = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
         >
           <Text style={styles.title}>Signup</Text>
-          <AppInput placeholder="Email" value={email} onChangeText={setEmail} />
+          <AppInput
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+            type="email"
+          />
           <AppInput
             placeholder="Password"
             value={pass}
             onChangeText={setPass}
-            secure
+            type="password"
           />
           <TouchableOpacity
             onPress={() => navigation.navigate('ForgetPassword')}

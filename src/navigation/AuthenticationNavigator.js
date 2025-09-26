@@ -9,6 +9,11 @@ import Password from '../screens/Authentication/Password';
 import NewPasswordViaSMS from '../screens/Authentication/NewPasswordViaSMS';
 import ForgetPassword from '../screens/Authentication/ForgetPassword';
 import AccountComplete from '../screens/Authentication/AccountComplete';
+import RiderRegistration from '../screens/Authentication/RiderRegistration';
+import RiderNames from '../screens/Authentication/RiderNames';
+import RiderBirthday from '../screens/Authentication/RiderBirthday';
+import RiderLogo from '../screens/Authentication/RiderLogo';
+import RiderCNIC from '../screens/Authentication/RiderCNIC';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +27,11 @@ const AuthenticationNavigator = () => (
     <Stack.Screen name="NewPasswordViaSMS" component={NewPasswordViaSMS} />
     <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
     <Stack.Screen name="AccountComplete" component={AccountComplete} />
+    <Stack.Screen name="RiderRegistration" component={RiderRegistration} />
+    <Stack.Screen name="RiderNames" component={RiderNames} />
+    <Stack.Screen name="RiderBirthday" component={RiderBirthday} />
+    <Stack.Screen name="RiderLogo" component={RiderLogo} />
+    <Stack.Screen name="RiderCNIC" component={RiderCNIC} />
   </Stack.Navigator>
 );
 

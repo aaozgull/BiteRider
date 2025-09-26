@@ -22,12 +22,12 @@ const Password = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <HeaderComponent leftIcon="chevron" />
+
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={isIOS ? 'padding' : 'height'}
       >
-        <HeaderComponent leftIcon="chevron" />
-
         {/* Scrollable content so inputs don’t get hidden */}
         <ScrollView
           contentContainerStyle={styles.subContainer}
@@ -75,7 +75,7 @@ const Password = ({ navigation }) => {
           </Text>
           <AppButton
             title="Account banaiyen"
-            onPress={() => navigation.navigate('PhoneNumber')}
+            onPress={() => navigation.navigate('AccountComplete')}
           />
         </View>
       </KeyboardAvoidingView>
@@ -98,7 +98,7 @@ const LablePoints = ({ lable }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    paddingHorizontal: 20,
     backgroundColor: COLORS.background,
   },
   subContainer: {

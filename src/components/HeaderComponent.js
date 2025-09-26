@@ -8,54 +8,34 @@ export default function HeaderComponent({
   title,
   subtitle,
   bottomBorder = false,
-  leftIcon = 'cross', // 'cross' | 'chevron'
-  onLeftPress = null,
-  rightIcon, // require(...) | null
-  onRightPress = null,
-  isCircle = false, // ✅ toggle circle icons
-  withSubtitle = false, // ✅ toggle stacked layout
+  leftIcon = 'cross', // 'cross' or 'chevron'
+  onleftPress = null,
+  rightIcon, // optional: require('../../assets/icons/tick.png') etc.
+  onRightPress = null, // optional: function
 }) {
   const navigation = useNavigation();
-  const leftPress = onLeftPress || (() => navigation.goBack());
-
-  // Select left icon
+  const leftPress = onleftPress ? onleftPress : () => navigation.goBack();
   const getLeftIconSource = () => {
-    const isBlackIcon = isCircle
-      ? require('../assets/images/Header/left-chevron.png')
-      : require('../assets/images/Header/back.png');
-
     return leftIcon === 'chevron'
-      ? isBlackIcon
-      : require('../assets/images/Header/cross.png');
+      ? require('../assets/images/Authentication/left-chevron.png')
+      : require('../assets/images/Authentication/Vector.png');
   };
 
   return (
-    <View style={[styles.container, bottomBorder && styles.bottomBorder]}>
-      {/* Left Icon */}
-      <TouchableOpacity
-        style={[styles.leftIcon, isCircle && styles.circle]}
-        onPress={leftPress}
-      >
+    <View style={[styles.container, bottomBorder ? styles.bottomBorder : {}]}>
+      <TouchableOpacity style={styles.leftIcon} onPress={leftPress}>
         <Image source={getLeftIconSource()} />
       </TouchableOpacity>
 
-      {/* Title + Subtitle (stacked if withSubtitle = true) */}
-      <View style={styles.center}>
-        <Text style={styles.heading}>{title}</Text>
-        {withSubtitle && subtitle && (
-          <Text style={styles.subHeading}>{subtitle}</Text>
-        )}
-      </View>
+      <Text style={styles.heading}>{title}</Text>
 
-      {/* Right Icon */}
       {rightIcon && (
-        <TouchableOpacity
-          style={[styles.rightIcon, isCircle && styles.circle]}
-          onPress={onRightPress}
-        >
+        <TouchableOpacity style={styles.rightIcon} onPress={onRightPress}>
           <Image source={rightIcon} />
         </TouchableOpacity>
       )}
+
+      {subtitle && <Text style={styles.subHeading}>{subtitle}</Text>}
     </View>
   );
 }
@@ -63,10 +43,9 @@ export default function HeaderComponent({
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
-    minHeight: 50,
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 8,
   },
   bottomBorder: {
     borderBottomWidth: 1,
@@ -84,10 +63,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
   },
-  center: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   heading: {
     fontFamily: FONTS.bold700,
     fontSize: FONT_SIZE.medium,
@@ -96,17 +71,10 @@ const styles = StyleSheet.create({
   },
   subHeading: {
     fontFamily: FONTS.medium500,
-    fontSize: FONT_SIZE.small,
+    fontSize: FONT_SIZE.normal,
     fontWeight: '500',
+    alignSelf: 'center',
     color: COLORS.grayText1,
-    marginTop: 2,
-  },
-  circle: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: COLORS.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: 4,
   },
 });

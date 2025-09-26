@@ -1,35 +1,52 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {
+  View,
+  Image,
+  StyleSheet,
+  KeyboardAvoidingView,
+  ScrollView,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/HeaderComponent';
 import AppButton from '../../components/AppButton';
 import { COLORS, FONTS } from '../../constants';
 import { FONT_SIZE } from '../../utils/spacing';
+import { isIOS } from '../../utils/layout';
 
-const AccountComplete = ({ navigation }) => {
+const RiderLogo = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <HeaderComponent
-        leftIcon="chevron"
-        title="Account ban gaya"
+        //leftIcon="chevron"
+        title="Become a rider"
         bottomBorder={true}
+        leftIcon="chevron"
         rightIcon={require('../../assets/images/Authentication/cross.png')}
         onRightPress={() => navigation.goBack()}
       />
 
-      {/* Scrollable content so inputs don’t get hidden */}
-      <View style={styles.subContainer}>
-        <Text style={styles.title}>Apka account kamiyabi se ban gaya </Text>
-        <Text style={styles.subtitle}>
-          Apni application ka safar shuru krne ke liye sign in karein
-        </Text>
-      </View>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={isIOS ? 'padding' : 'height'}
+      >
+        <ScrollView
+          contentContainerStyle={styles.subContainer}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={{ alignItems: 'center' }}>
+            <Image
+              source={require('../../assets/images/Authentication/Rider.png')}
+            />
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
 
       {/* Footer stays fixed */}
       <View style={styles.bottomSection}>
         <AppButton
-          title="Sign in"
-          onPress={() => navigation.navigate('RiderRegistration')}
+          title="Next"
+          onPress={() => navigation.navigate('RiderCNIC')}
         />
       </View>
     </SafeAreaView>
@@ -43,25 +60,17 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
   },
   subContainer: {
-    flex: 1,
-    paddingBottom: 20, // leaves space above footer
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingVertical: 40,
   },
   bottomSection: {
     paddingBottom: 10,
   },
   title: {
     fontFamily: FONTS.bold700,
-    fontSize: FONT_SIZE.large,
+    fontSize: FONT_SIZE.xxlarge,
     fontWeight: '700',
-    marginBottom: 10,
-  },
-  subtitle: {
-    fontFamily: FONTS.semiBold600,
-    fontSize: FONT_SIZE.normal,
-    //marginBottom: 20,
-    color: COLORS.grayText1,
+    marginTop: 50,
+    marginBottom: 50,
   },
 
   footer: {
@@ -71,4 +80,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AccountComplete;
+export default RiderLogo;
